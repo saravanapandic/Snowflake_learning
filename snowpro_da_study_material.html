@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnowPro Advanced: Data Analyst – Study Material</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+  :root {
+    --snow-blue: #29B5E8;
+    --snow-dark: #11253A;
+    --snow-navy: #1A3A52;
+    --snow-card: #162B3E;
+    --snow-border: #1E3F5A;
+    --accent-teal: #00D4CC;
+    --accent-gold: #F4C842;
+    --accent-red: #FF6B6B;
+    --accent-green: #4ECB71;
+    --text-primary: #E8F4FD;
+    --text-secondary: #9BB8CF;
+    --text-muted: #607D8F;
+    --code-bg: #0D1F2D;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--snow-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0A1A28 0%, #11253A 40%, #0E2035 100%);
+    border-bottom: 2px solid var(--snow-blue);
+    padding: 56px 40px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(41,181,232,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(41,181,232,0.15);
+    border: 1px solid var(--snow-blue);
+    color: var(--snow-blue);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .hero h1 span { color: var(--snow-blue); }
+  .hero p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto 28px;
+  }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .hero-tags span {
+    background: rgba(41,181,232,0.1);
+    border: 1px solid rgba(41,181,232,0.3);
+    color: var(--accent-teal);
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 12px;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+  main { padding: 48px 0 80px; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    margin-top: 48px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--snow-border);
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--snow-blue), var(--accent-teal));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 22px; font-weight: 700; color: #fff;
+  }
+  .section-header .num {
+    margin-left: auto;
+    background: rgba(41,181,232,0.12);
+    color: var(--snow-blue);
+    font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  /* ── TOPIC CARD ── */
+  .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
+  .topic-card {
+    background: var(--snow-card);
+    border: 1px solid var(--snow-border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    transition: border-color .2s, transform .2s;
+  }
+  .topic-card:hover { border-color: var(--snow-blue); transform: translateY(-2px); }
+  .topic-card h3 {
+    font-size: 14px; font-weight: 600;
+    color: var(--accent-teal);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .topic-card h3 .dot {
+    width: 6px; height: 6px;
+    background: var(--accent-teal);
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .topic-card ul { list-style: none; }
+  .topic-card ul li {
+    color: var(--text-secondary);
+    font-size: 13.5px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .topic-card ul li:last-child { border-bottom: none; }
+  .topic-card ul li::before { content: '→'; color: var(--snow-blue); flex-shrink: 0; font-size: 12px; margin-top: 1px; }
+
+  /* ── KEY CONCEPT BOX ── */
+  .concept-box {
+    background: var(--snow-card);
+    border: 1px solid var(--snow-border);
+    border-left: 4px solid var(--snow-blue);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .concept-box.gold { border-left-color: var(--accent-gold); }
+  .concept-box.green { border-left-color: var(--accent-green); }
+  .concept-box.red { border-left-color: var(--accent-red); }
+  .concept-box h4 {
+    font-size: 14px; font-weight: 700;
+    color: #fff; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .concept-box h4 .tag {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 8px;
+    background: rgba(41,181,232,0.15); color: var(--snow-blue);
+    letter-spacing: .5px; text-transform: uppercase;
+  }
+  .concept-box.gold h4 .tag { background: rgba(244,200,66,0.15); color: var(--accent-gold); }
+  .concept-box.green h4 .tag { background: rgba(78,203,113,0.15); color: var(--accent-green); }
+  .concept-box.red h4 .tag { background: rgba(255,107,107,0.15); color: var(--accent-red); }
+  .concept-box p, .concept-box li { color: var(--text-secondary); font-size: 13.5px; }
+  .concept-box ul { list-style: none; }
+  .concept-box ul li { padding: 3px 0; display: flex; gap: 8px; }
+  .concept-box ul li::before { content: '✓'; color: var(--accent-green); flex-shrink: 0; }
+
+  /* ── CODE SNIPPET ── */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--snow-border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    overflow-x: auto;
+  }
+  .code-block code {
+    font-family: 'Fira Code', monospace;
+    font-size: 12.5px;
+    color: #a8d8ea;
+    white-space: pre;
+    display: block;
+  }
+  .code-block .kw { color: #79c7ff; }
+  .code-block .fn { color: #f4c842; }
+  .code-block .str { color: #7ec8a4; }
+  .code-block .cm { color: #5a7a8a; font-style: italic; }
+  .code-block .num { color: #f4a460; }
+
+  /* ── COMPARISON TABLE ── */
+  .table-wrap { overflow-x: auto; margin: 16px 0; border-radius: 12px; border: 1px solid var(--snow-border); }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: rgba(41,181,232,0.12); }
+  th {
+    padding: 12px 16px; text-align: left;
+    font-size: 12px; font-weight: 700;
+    color: var(--snow-blue); text-transform: uppercase; letter-spacing: .7px;
+  }
+  td { padding: 11px 16px; font-size: 13px; color: var(--text-secondary); border-top: 1px solid var(--snow-border); }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  td strong { color: var(--text-primary); }
+  td .pill {
+    display: inline-block;
+    font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border-radius: 8px;
+    margin-right: 4px;
+  }
+  td .pill.blue { background: rgba(41,181,232,0.15); color: var(--snow-blue); }
+  td .pill.green { background: rgba(78,203,113,0.15); color: var(--accent-green); }
+  td .pill.gold { background: rgba(244,200,66,0.15); color: var(--accent-gold); }
+  td .pill.red { background: rgba(255,107,107,0.15); color: var(--accent-red); }
+
+  /* ── EXAM TIP ── */
+  .exam-tip {
+    background: linear-gradient(135deg, rgba(244,200,66,0.08), rgba(244,200,66,0.04));
+    border: 1px solid rgba(244,200,66,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .exam-tip .icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .exam-tip p { color: var(--text-secondary); font-size: 13.5px; }
+  .exam-tip strong { color: var(--accent-gold); }
+
+  /* ── GRID 2 COL ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } .topic-grid { grid-template-columns: 1fr; } }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--snow-navy);
+    border-top: 1px solid var(--snow-border);
+    text-align: center;
+    padding: 28px;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+  footer strong { color: var(--snow-blue); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Exam Study Material</div>
+  <h1>SnowPro Advanced: <span>Data Analyst</span></h1>
+  <p>A structured deep-dive into every domain covered in the DA-C-01 exam — built from real question patterns.</p>
+  <div class="hero-tags">
+    <span>SQL & Analytics</span>
+    <span>Snowsight Dashboards</span>
+    <span>Semi-Structured Data</span>
+    <span>Performance Optimization</span>
+    <span>Data Sharing</span>
+    <span>ML & Forecasting</span>
+    <span>Access Control</span>
+    <span>Geospatial</span>
+  </div>
+</div>
+
+<main>
+<div class="container">
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 1 — SQL & QUERY FUNCTIONS
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">🔍</div>
+  <h2>Domain 1 — SQL Functions & Query Techniques</h2>
+  <span class="num">High Weight</span>
+</div>
+
+<div class="topic-grid">
+  <div class="topic-card">
+    <h3><span class="dot"></span>Aggregate Functions</h3>
+    <ul>
+      <li>AVG / SUM / MIN / MAX / COUNT ignores NULLs</li>
+      <li>ANY_VALUE — returns an arbitrary non-null value from group (non-deterministic)</li>
+      <li>APPROX_COUNT_DISTINCT — fast HLL-based cardinality estimate</li>
+      <li>HLL() — HyperLogLog for huge datasets</li>
+      <li>LISTAGG, OBJECT_AGG, ARRAY_AGG</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>Statistical Functions</h3>
+    <ul>
+      <li>CORR(x, y) — Pearson correlation coefficient</li>
+      <li>COVAR_SAMP / COVAR_POP — covariance</li>
+      <li>REGR_SLOPE — linear regression slope (for forecasting)</li>
+      <li>REGR_INTERCEPT — y-intercept of regression line</li>
+      <li>VARIANCE / STDDEV — dispersion measures</li>
+      <li>APPROX_PERCENTILE — fast percentile on large sets</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>Window Functions</h3>
+    <ul>
+      <li>OVER (ORDER BY col ROWS BETWEEN n PRECEDING AND CURRENT ROW) — moving avg</li>
+      <li>ROW_NUMBER / RANK / DENSE_RANK</li>
+      <li>LAG / LEAD — access adjacent rows</li>
+      <li>FIRST_VALUE / LAST_VALUE</li>
+      <li>PERCENTILE_DISC(0.4) WITHIN GROUP (ORDER BY col DESC)</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>Math & Conversion</h3>
+    <ul>
+      <li>CEIL(x, scale) — round up to scale decimal places</li>
+      <li>::FLOAT, ::INTEGER, ::VARCHAR — Snowflake cast syntax</li>
+      <li>100::FLOAT * 20.78::INTEGER || ' Square Feet' — string concat with cast</li>
+      <li>TRUNC / ROUND / FLOOR</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>String Functions</h3>
+    <ul>
+      <li>ILIKE — case-insensitive LIKE</li>
+      <li>ILIKE 'p%_j%' ESCAPE '=' — escape special chars with ESCAPE clause</li>
+      <li>_ matches exactly one character; % matches zero or more</li>
+      <li>SPLIT_TO_TABLE(col, delimiter) — lateral flatten to rows</li>
+      <li>LATERAL STRTOK_SPLIT_TO_TABLE(col, '-') returns SEQ, INDEX, VALUE</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>Sampling</h3>
+    <ul>
+      <li>SAMPLE BLOCK (p) — block-level probability sampling</li>
+      <li>SAMPLE (n ROWS) — fixed row count sample</li>
+      <li>REPEATABLE (seed) — reproducible random sample</li>
+      <li>SELECT * FROM tbl SAMPLE (10 ROWS) — Snowflake syntax</li>
+      <li>select * FROM FCT_SALES SAMPLE (10 rows) — correct form</li>
+    </ul>
+  </div>
+</div>
+
+<div class="exam-tip">
+  <div class="icon">💡</div>
+  <p><strong>Exam trap:</strong> <code>CEIL(AVG(GRADE), 2)</code> on grades {4,1,2,1,2,NULL} → AVG ignores NULL → AVG = 2.0 → CEIL(2.0, 2) = <strong>2.00</strong> (keeps 2 decimal places). Answer: A.</p>
+</div>
+
+<div class="concept-box">
+  <h4>ANY_VALUE vs MIN/MAX <span class="tag">Tricky</span></h4>
+  <p>ANY_VALUE returns <strong>some</strong> value from the group — it's non-deterministic but never NULL if any non-null exists. Use it when you need <em>a</em> value but don't care which one (avoids expensive full grouping).</p>
+</div>
+
+<!-- Moving Average -->
+<div class="concept-box green">
+  <h4>7-Day Moving Average <span class="tag">Formula</span></h4>
+  <div class="code-block"><code><span class="kw">SELECT</span> <span class="fn">AVG</span>(SALES) <span class="kw">OVER</span> (
+  <span class="kw">ORDER BY</span> SALES_DATE
+  <span class="kw">ROWS BETWEEN</span> <span class="num">6</span> PRECEDING <span class="kw">AND</span> CURRENT ROW
+) <span class="kw">AS</span> moving_avg_7d</code></div>
+  <p>1 record/day → 6 PRECEDING + CURRENT = 7 rows. <strong>Not SUM, not 7 PRECEDING.</strong></p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 2 — JOINS
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">🔗</div>
+  <h2>Domain 2 — Joins & Set Operations</h2>
+  <span class="num">Medium Weight</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Join Type</th><th>When to Use</th><th>Key Behaviour</th></tr></thead>
+  <tbody>
+    <tr><td><strong>INNER JOIN</strong></td><td>Only matching rows from both tables</td><td>Excludes NULLs / non-matching</td></tr>
+    <tr><td><strong>LEFT OUTER JOIN</strong></td><td>All from left + matches from right</td><td>Right unmatched → NULL</td></tr>
+    <tr><td><strong>FULL OUTER JOIN</strong></td><td>All rows from BOTH tables</td><td>Unmatched on either side → NULL; use for "all projects AND all employees"</td></tr>
+    <tr><td><strong>CROSS JOIN</strong></td><td>Cartesian product</td><td>n × m rows; no ON clause needed</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="exam-tip">
+  <div class="icon">💡</div>
+  <p><strong>Exam pattern:</strong> "Return ALL projects AND ALL employees" → <strong>FULL OUTER JOIN</strong>. If only all from one side → LEFT JOIN. If only matching → INNER JOIN.</p>
+</div>
+
+<div class="concept-box">
+  <h4>INNER JOIN result on tbl_a × tbl_b <span class="tag">Example</span></h4>
+  <p>tbl_a IDs: {1,2,3,null} | tbl_b IDs: {1,1,2,5,null} → INNER JOIN on a.id=b.id → matches on 1,1,2 → 3 rows returned (IDs: 1,1,2). NULLs never match.</p>
+</div>
+
+<div class="concept-box gold">
+  <h4>UNPIVOT <span class="tag">Reshape</span></h4>
+  <p>Converts wide columns into rows. A table with DEPT, JAN, FEB, MAR, APRIL → UNPIVOT produces rows with DEPT, MONTH, SALES. PIVOT does the reverse (rows → columns).</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 3 — SEMI-STRUCTURED DATA
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">📦</div>
+  <h2>Domain 3 — Semi-Structured Data (JSON / VARIANT)</h2>
+  <span class="num">High Weight</span>
+</div>
+
+<div class="grid-2">
+  <div class="concept-box">
+    <h4>JSON Path Navigation <span class="tag">Syntax</span></h4>
+    <div class="code-block"><code><span class="cm">-- Dot notation</span>
+json_col:employee.name
+json_col:employee.phone[0]  <span class="cm">-- first item (no cast = variant)</span>
+json_col:employee.phone[1]::varchar  <span class="cm">-- cast = removes quotes</span>
+
+<span class="cm">-- Array element access</span>
+SELECT col_b[ARRAY_SIZE(col_b)-1]  <span class="cm">-- last element</span></code></div>
+    <ul>
+      <li>Without cast → result keeps JSON quotes (string type VARIANT)</li>
+      <li>With <code>::varchar</code> cast → quotes stripped</li>
+    </ul>
+  </div>
+  <div class="concept-box">
+    <h4>ARRAY Functions <span class="tag">Key Functions</span></h4>
+    <ul>
+      <li>ARRAY_SIZE(arr) — number of elements</li>
+      <li>col_b[ARRAY_SIZE(col_b)-1] — last element (0-indexed)</li>
+      <li>col_b[-1] — does NOT work in Snowflake</li>
+      <li>LAST_VALUE(col_b) — window function, not array function</li>
+      <li>GET(arr, index) — alternative accessor</li>
+      <li>FLATTEN — lateral view exploding array into rows</li>
+    </ul>
+  </div>
+</div>
+
+<div class="concept-box green">
+  <h4>INFER_SCHEMA <span class="tag">Schema Detection</span></h4>
+  <ul>
+    <li>Detects schema from <strong>staged semi-structured files</strong> (Parquet, JSON, Avro etc.)</li>
+    <li>Use with <code>CREATE TABLE … USING TEMPLATE (SELECT ARRAY_AGG(OBJECT_CONSTRUCT(*)) FROM TABLE(INFER_SCHEMA(…)))</code></li>
+    <li>NOT for unstructured data; NOT for JSON inside a table cell</li>
+    <li>Pair with <code>GENERATE_COLUMN_DESCRIPTION</code> to auto-create DDL</li>
+  </ul>
+</div>
+
+<div class="concept-box">
+  <h4>Loading Parquet from Stage <span class="tag">COPY INTO</span></h4>
+  <div class="code-block"><code><span class="cm">-- Correct: use $1 column references (Parquet columns by position)</span>
+COPY INTO parquet_col FROM (
+  SELECT $1:o_custkey::number,
+         $1:o_orderdate::date,
+         $1:o_orderstatus::varchar,
+         $1:o_totalprice::varchar
+  FROM @mystage/mydata.parquet
+);</code></div>
+  <p style="margin-top:8px;color:var(--text-secondary);font-size:13px;">Named column refs like <code>o_custkey::number</code> without $1 is wrong for Parquet.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 4 — SNOWSIGHT & DASHBOARDS
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">📊</div>
+  <h2>Domain 4 — Snowsight & Dashboards</h2>
+  <span class="num">High Weight</span>
+</div>
+
+<div class="topic-grid">
+  <div class="topic-card">
+    <h3><span class="dot"></span>Chart Types</h3>
+    <ul>
+      <li>Scatter plot → identify natural clusters</li>
+      <li>Heat grid → show product transfer routes / frequency matrix</li>
+      <li>Line chart → time-series trends</li>
+      <li>Bar chart → category comparisons</li>
+      <li>Scorecard tile → single KPI with % change vs comparison</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>Dashboard Filters</h3>
+    <ul>
+      <li>Custom filter → referenced as <code>:filter_name</code> in queries</li>
+      <li>System date filter (<code>:daterange</code>) → use <code>WHERE col = :daterange</code></li>
+      <li>System bucket filter (<code>:datebucket</code>) → use in GROUP BY</li>
+      <li>Filter runs using role of user who CREATED the filter</li>
+      <li>"SQL keyword" in filter = filter name inserted into query</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>Scorecard Tile</h3>
+    <ul>
+      <li>Shows VALUE (large number) + % change vs comparison</li>
+      <li>Tile: 38 ↑ 12% → 38 = company avg, 12% = percent difference from industry avg (34)</li>
+      <li>(38-34)/34 × 100 = 11.76% ≈ 12%</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>Worksheet → Dashboard</h3>
+    <ul>
+      <li>Move worksheets into dashboard (least operational overhead)</li>
+      <li>When creating dashboard from shared worksheet → original users LOSE access; permissions revoked</li>
+      <li>Shared worksheets: multiple users running same time creates new versions</li>
+      <li>Collaborators can see real-time edits (D); version history preserved</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>Column Histogram</h3>
+    <ul>
+      <li>Click column header in results → see distribution histogram without re-running</li>
+      <li>WIDTH_BUCKET() — manual bucketing function</li>
+      <li>Use "Go to Chart → histogram" requires two variables (bivariate)</li>
+    </ul>
+  </div>
+  <div class="topic-card">
+    <h3><span class="dot"></span>Aggregate Functions in Charts</h3>
+    <ul>
+      <li>Snowsight chart buckets support: Any Value, Average, Max (select THREE)</li>
+      <li>NOT supported: Mode, HLL, Standard Deviation (for buckets)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="exam-tip">
+  <div class="icon">💡</div>
+  <p><strong>Filter syntax:</strong> <code>WHERE start_time = :daterange</code> links a tile to the system date filter. <code>:date_filter</code> is a custom filter name. <code>SYSDATE()</code> / <code>CURRENT_TIMESTAMP()</code> are hardcoded, not dynamic dashboard filters.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 5 — PERFORMANCE OPTIMIZATION
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">⚡</div>
+  <h2>Domain 5 — Query Performance & Optimization</h2>
+  <span class="num">Medium Weight</span>
+</div>
+
+<div class="grid-2">
+  <div class="concept-box">
+    <h4>Query Profile Reading <span class="tag">Key Signals</span></h4>
+    <ul>
+      <li>High % in Rescan node → <strong>exploding join</strong> (cartesian-like result)</li>
+      <li>Spilling indicator → <strong>query spilling</strong> (memory overflow)</li>
+      <li>Inefficient pruning → micro-partition scan too wide</li>
+      <li>Join [S] → small table; large % in Rescan = exploding join</li>
+    </ul>
+  </div>
+  <div class="concept-box">
+    <h4>Spilling Fix — No Cost Increase <span class="tag">Optimization</span></h4>
+    <ul>
+      <li>Create <strong>materialized view clustered on date column</strong> on the spilling table</li>
+      <li>Run against zero-copy clones → avoids contention only</li>
+      <li>External tables → custom partitioning, not spill fix</li>
+      <li>Split into CTEs with temp tables → helps but adds cost</li>
+    </ul>
+  </div>
+</div>
+
+<div class="concept-box gold">
+  <h4>USE_CACHED_RESULT = FALSE <span class="tag">Slow Query Reason</span></h4>
+  <p>Two identical queries on same-size tables — Query 2 runs slower because <code>USE_CACHED_RESULT</code> was set to FALSE, bypassing the result cache. Otherwise same-query results are served from cache instantly.</p>
+</div>
+
+<div class="concept-box">
+  <h4>Result Cache Access <span class="tag">RESULT_SCAN</span></h4>
+  <div class="code-block"><code><span class="cm">-- Access results of previous query by its ID</span>
+SELECT * FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()));
+
+<span class="cm">-- LAST_QUERY_ID(-1) = 2 queries back</span>
+<span class="cm">-- desc result last_query_id() = WRONG syntax</span></code></div>
+</div>
+
+<div class="concept-box green">
+  <h4>Query Acceleration Service <span class="tag">SYSTEM$ESTIMATE_QUERY_ACCELERATION</span></h4>
+  <p>Returns JSON with <code>estimatedQueryTimes</code>: keys <strong>1, 2, 4, 8</strong> represent <strong>scale factors</strong> (how much to scale the warehouse). Not micro-partitions, not clusters.</p>
+</div>
+
+<div class="concept-box">
+  <h4>Cardinality Estimation <span class="tag">Large Tables</span></h4>
+  <ul>
+    <li><strong>HLL(*)</strong> — HyperLogLog, fast approximate distinct count for trillion-row tables</li>
+    <li>APPROX_COUNT_DISTINCT — alias for HLL behavior</li>
+    <li>COUNT(DISTINCT *) — exact but expensive on huge tables</li>
+    <li>SYSTEM$ESTIMATE — not a real function for cardinality</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 6 — DATA SHARING & MARKETPLACE
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">🤝</div>
+  <h2>Domain 6 — Data Sharing, Marketplace & Secure Views</h2>
+  <span class="num">Medium Weight</span>
+</div>
+
+<div class="grid-2">
+  <div class="concept-box">
+    <h4>Secure Views — Benefits <span class="tag">Security</span></h4>
+    <ul>
+      <li>Hides query definition from consumers</li>
+      <li>Users CANNOT observe quantity of underlying data (option A ✓)</li>
+      <li>Amount of data scanned and total volume are obfuscated</li>
+      <li>Secure views are LESS performant than regular views (optimizer restricted)</li>
+    </ul>
+  </div>
+  <div class="concept-box">
+    <h4>Data Consumer Permissions <span class="tag">Sharing</span></h4>
+    <ul>
+      <li>✓ Copy data from shared DB into consumer account</li>
+      <li>✓ Create streams on shared DB objects</li>
+      <li>✓ Grant shared DB roles to consumer roles</li>
+      <li>✗ Create clone of shared database</li>
+      <li>✗ Use Time Travel on shared DB</li>
+      <li>✗ Edit comments in shared DB</li>
+    </ul>
+  </div>
+</div>
+
+<div class="concept-box gold">
+  <h4>Cross-Account Row Access Policy <span class="tag">Sharing + Security</span></h4>
+  <p>When sharing views across accounts, use <strong>CURRENT_ACCOUNT()</strong> in the row access policy to give consumers access to rows belonging to their account. Not CURRENT_ROLE, not CURRENT_USER.</p>
+</div>
+
+<div class="concept-box">
+  <h4>Marketplace Cross-DB View <span class="tag">Scenario</span></h4>
+  <p>Need to join ADDRESS_DATA (Marketplace DB) with GLOBAL_DWH.ORDERS table → create the view in the <strong>GLOBAL_DWH database</strong> (where ORDERS lives). You can cross-reference ADDRESS_DATA from there. Cannot create view in ADDRESS_DATA referencing GLOBAL_DWH objects without write access.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 7 — STORED PROCS, UDFs, TASKS
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">⚙️</div>
+  <h2>Domain 7 — Stored Procedures, UDFs & Tasks</h2>
+  <span class="num">Medium Weight</span>
+</div>
+
+<div class="grid-2">
+  <div class="concept-box">
+    <h4>Stored Proc vs UDF <span class="tag">Key Difference</span></h4>
+    <ul>
+      <li>Stored Proc → dynamic SQL, procedural logic, modular code encapsulation ✓</li>
+      <li>UDF → called inside SELECT, returns scalar/table value</li>
+      <li>Dynamic SQL (EXECUTE IMMEDIATE) → only Stored Procedures</li>
+      <li>UDFs cannot dynamically CREATE/DROP tables</li>
+    </ul>
+  </div>
+  <div class="concept-box">
+    <h4>Nested Function Call Tracing <span class="tag">Logic</span></h4>
+    <div class="code-block"><code><span class="cm">-- func2(10) → select p * 10 → 100</span>
+<span class="cm">-- func1(100) → select v * 10 → 1000... wait</span>
+<span class="cm">-- func2(10): p=10 → p*10 = 100</span>
+<span class="cm">-- func1(100): v=100 → v*10 = 1000... </span>
+<span class="cm">-- proc1(1000): result=1000 >= 30 → return 1000-10 = 990? </span>
+<span class="cm">-- Trace carefully: result >= 30 → result-10</span></code></div>
+    <p style="margin-top:8px;color:var(--text-secondary);font-size:13px;">Always trace inside-out: innermost function first.</p>
+  </div>
+</div>
+
+<div class="concept-box green">
+  <h4>Task with Stream (Event-Driven) <span class="tag">Correct Syntax</span></h4>
+  <div class="code-block"><code><span class="cm">-- CORRECT: WHEN clause triggers on new stream data, no SCHEDULE</span>
+<span class="kw">CREATE TASK</span> mytask1
+  WAREHOUSE = mywh
+  <span class="kw">WHEN</span> SYSTEM$STREAM_HAS_DATA(<span class="str">'MYSTREAM'</span>)
+<span class="kw">AS</span> ...
+
+<span class="cm">-- WRONG: SCHEDULE + WHEN together doesn't auto-trigger on stream alone</span>
+<span class="cm">-- WRONG: SCHEDULE = 'STREAM' is not valid syntax</span></code></div>
+</div>
+
+<div class="concept-box">
+  <h4>DAG Task Retry <span class="tag">EXECUTE TASK</span></h4>
+  <p>ETLDAILY (DAG root) failed at STEP10 → STEP11, STEP12 didn't run. To re-run STEP10 and its dependents: <code>EXECUTE TASK STEP10 RETRY LAST;</code> — not the root ETLDAILY, not ALTER TASK RESUME.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 8 — TIME TRAVEL & CLONING
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">⏱️</div>
+  <h2>Domain 8 — Time Travel, Zero-Copy Cloning & Storage</h2>
+  <span class="num">Low-Medium Weight</span>
+</div>
+
+<div class="concept-box">
+  <h4>Zero-Copy Clone for Investigation <span class="tag">Scenario</span></h4>
+  <p>PROD DB has 15TB TRANS_HIST (2001–2022). Need a copy in DEV to investigate 2019 anomaly without extra storage cost:</p>
+  <div class="code-block"><code><span class="cm">-- CORRECT: Clone (no storage cost for unchanged data)</span>
+<span class="kw">CREATE TABLE</span> DEV.PUBLIC.TRANS_HIST
+  CLONE PROD.PUBLIC.TRANS_HIST;
+
+<span class="cm">-- WRONG: CREATE TABLE … LIKE (only copies structure, no data)</span>
+<span class="cm">-- WRONG: CREATE TABLE … AS SELECT * (full copy = extra storage)</span>
+<span class="cm">-- WRONG: CREATE TABLE … AS SELECT WHERE year=2019 (partial only)</span></code></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 9 — ML FUNCTIONS
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">🤖</div>
+  <h2>Domain 9 — ML Functions & Forecasting</h2>
+  <span class="num">Low Weight</span>
+</div>
+
+<div class="concept-box">
+  <h4>modelX.FORECAST → Save Results <span class="tag">Workflow</span></h4>
+  <ul>
+    <li>After calling <code>modelX!FORECAST(…)</code>, results land in a <strong>RESULT_SCAN</strong></li>
+    <li>To save: <code>CREATE TABLE tableX AS SELECT * FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()))</code></li>
+    <li>Cannot load directly INTO tableX as function argument</li>
+    <li>Cannot pass the new table as a function argument</li>
+  </ul>
+</div>
+
+<div class="concept-box gold">
+  <h4>Sales Prediction Function <span class="tag">Which Function?</span></h4>
+  <p>To predict sales revenue through end of fiscal year → use <strong>REGR_SLOPE</strong> (gives slope of linear regression — rate of change, used for projection). Not CORR (correlation only), not COVAR_SAMP (covariance), not VARIANCE.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 10 — ACCESS CONTROL
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">🔐</div>
+  <h2>Domain 10 — Access Control & SSO</h2>
+  <span class="num">Low Weight</span>
+</div>
+
+<div class="grid-2">
+  <div class="concept-box">
+    <h4>SSO Setup Role <span class="tag">Role Required</span></h4>
+    <p>BI platform accessing Snowflake via SSO → setup requires <strong>SECURITYADMIN</strong> role. Not ACCOUNTADMIN, not USERADMIN, not SYSADMIN.</p>
+  </div>
+  <div class="concept-box">
+    <h4>ACCOUNT_USAGE vs INFORMATION_SCHEMA <span class="tag">Monitoring</span></h4>
+    <ul>
+      <li>ACCOUNT_USAGE → up to 365 days history, 45-min latency</li>
+      <li>INFORMATION_SCHEMA → real-time, 7-day history only</li>
+      <li>Dashboard query failing: DB1.ACCOUNT_USAGE does not exist → must use <strong>SNOWFLAKE.ACCOUNT_USAGE</strong> (change DB context to SNOWFLAKE)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="concept-box">
+  <h4>Troubleshoot Dashboard Filter Failures <span class="tag">Alert History</span></h4>
+  <p>Daily dashboard filter refresh failing → query <strong>SNOWFLAKE.ACCOUNT_USAGE.ALERT_HISTORY</strong>. Not LOGIN_HISTORY, not ACCESS_HISTORY, not TASK_HISTORY.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 11 — GEOSPATIAL
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">🗺️</div>
+  <h2>Domain 11 — Geospatial Functions</h2>
+  <span class="num">Low Weight</span>
+</div>
+
+<div class="concept-box">
+  <h4>Distance Functions <span class="tag">Geospatial</span></h4>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Function</th><th>Output</th><th>Use Case</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ST_DISTANCE</strong></td><td>Meters (great-circle)</td><td>Distance between two GEOGRAPHY points — <strong>LEAST overhead</strong></td></tr>
+      <tr><td>HAVERSINE</td><td>Km (approximate)</td><td>Lat/lon pair inputs, manual calculation</td></tr>
+      <tr><td>ST_HAUSDORFFDISTANCE</td><td>Max min-distance</td><td>Between two geometries/linestrings</td></tr>
+      <tr><td>ST_LENGTH</td><td>Meters</td><td>Length of a linestring, not point-to-point</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 12 — TABLE GENERATOR
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">🎲</div>
+  <h2>Domain 12 — TABLE GENERATOR & Approximate Functions</h2>
+  <span class="num">Low Weight</span>
+</div>
+
+<div class="grid-2">
+  <div class="concept-box">
+    <h4>TABLE(GENERATOR) Row Count <span class="tag">Logic</span></h4>
+    <div class="code-block"><code>SELECT seq4(), uniform(1, 10, RANDOM(12))
+FROM TABLE(GENERATOR(TIMELIMIT => NULL))
+ORDER BY 1;</code></div>
+    <p style="margin-top:8px;color:var(--text-secondary);font-size:13px;"><strong>TIMELIMIT => NULL</strong> means unlimited time but <code>uniform(1,10,...)</code> constrains row generation — answer depends on ROWCOUNT, not TIMELIMIT. With TIMELIMIT=NULL and no ROWCOUNT = <strong>0 rows</strong> (NULL timelimit and no rowcount = no generation).</p>
+  </div>
+  <div class="concept-box">
+    <h4>Similarity Estimation <span class="tag">MinHash</span></h4>
+    <ul>
+      <li><strong>MinHash</strong> → estimates approximate similarity between two or more datasets (Jaccard similarity)</li>
+      <li>HyperLogLog → cardinality (distinct count) estimation</li>
+      <li>APPROX_PERCENTILE → percentile estimation</li>
+      <li>APPROX_TOP_K → most frequent values</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 13 — DIMENSIONAL MODELLING
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">📐</div>
+  <h2>Domain 13 — Dimensional Modelling</h2>
+  <span class="num">Low Weight</span>
+</div>
+
+<div class="concept-box">
+  <h4>Why Dimensional Model over Flat Table? (Select TWO) <span class="tag">BI Design</span></h4>
+  <ul>
+    <li>✓ <strong>A</strong> — Dimensional modelling improves query performance over a single table</li>
+    <li>✓ <strong>C</strong> — Combining facts and dimensions in a single flat table limits scalability and flexibility</li>
+    <li>✗ B — Dimensional modelling does NOT save storage (it's denormalized into dims, more storage)</li>
+    <li>✗ D — Ad-hoc analyses benefit from both models</li>
+    <li>✗ E — Snowflake does not inherently perform better with dimensional models</li>
+  </ul>
+</div>
+
+<div class="concept-box">
+  <h4>Foreign Key After Table Rename <span class="tag">DDL Behaviour</span></h4>
+  <p>Table "mother" renamed to "father" via ALTER TABLE RENAME — FK on "son" that references "mother" is automatically <strong>updated to reference the renamed table</strong> (D). Snowflake tracks object identity, not name strings.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     FINAL SUMMARY TABLE
+════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-icon">📋</div>
+  <h2>Quick Reference — Correct Answers Summary</h2>
+  <span class="num">All Topics</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Topic</th><th>Correct Answer</th><th>Why Others Are Wrong</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Secure view benefit</strong></td><td><span class="pill blue">A</span> Users can't observe data quantity</td><td>Secure views are LESS performant (D is wrong)</td></tr>
+    <tr><td><strong>CEIL(AVG(grade),2)</strong></td><td><span class="pill blue">A</span> 2.00</td><td>NULL ignored in AVG; CEIL at 2 decimals preserves .00</td></tr>
+    <tr><td><strong>SAMPLE syntax (TWO)</strong></td><td><span class="pill blue">A+B</span> SAMPLE 10 / SAMPLE(10 rows)</td><td>TOP is SQL Server; SELECT TOP 10 ROWS invalid in Snowflake</td></tr>
+    <tr><td><strong>7-day moving avg</strong></td><td><span class="pill blue">D</span> AVG … ROWS BETWEEN 6 PRECEDING</td><td>SUM is wrong function; 7 PRECEDING = 8 days</td></tr>
+    <tr><td><strong>Last array element</strong></td><td><span class="pill blue">B</span> col_b[ARRAY_SIZE(col_b)-1]</td><td>col_b[-1] invalid; LAST_VALUE is window function</td></tr>
+    <tr><td><strong>STRTOK_SPLIT_TO_TABLE result</strong></td><td><span class="pill blue">C</span> All 3 students, split by '-'</td><td>Splits full name on '-'; produces SEQ,INDEX,VALUE per part</td></tr>
+    <tr><td><strong>BLOCK SAMPLE (0.012) REPEATABLE</strong></td><td><span class="pill blue">C</span> 1.2% probability, seed 99992</td><td>0.012 = 1.2% (not 0.012%); seed = REPEATABLE value</td></tr>
+    <tr><td><strong>Forecast → save to table</strong></td><td><span class="pill blue">C</span> Create table by querying RESULT_SCAN</td><td>Cannot load directly INTO table from function call</td></tr>
+    <tr><td><strong>Cluster identification chart</strong></td><td><span class="pill blue">D</span> Scatter plot</td><td>Heat grid = frequency; bar = categories; line = trends</td></tr>
+    <tr><td><strong>Inventory transfer routes viz</strong></td><td><span class="pill blue">D</span> Heat grid</td><td>Shows warehouse-to-warehouse transfer intensity</td></tr>
+    <tr><td><strong>Custom filter behaviour</strong></td><td><span class="pill blue">B</span> Runs as role of creator</td><td>Not "many queries at a time"; can return multiple columns</td></tr>
+    <tr><td><strong>Dashboard date filter WHERE clause</strong></td><td><span class="pill blue">D</span> WHERE start_time = :daterange</td><td>SYSDATE/CURRENT_TIMESTAMP are hardcoded, not dynamic</td></tr>
+    <tr><td><strong>Scorecard 38 ↑12%</strong></td><td><span class="pill blue">C</span> 38=value, 12%=percent diff from comparison</td><td>Not standard deviation; not average age change</td></tr>
+    <tr><td><strong>TABLE GENERATOR NULL timelimit</strong></td><td><span class="pill blue">D</span> 0 rows</td><td>TIMELIMIT=NULL with no ROWCOUNT → no rows generated</td></tr>
+    <tr><td><strong>Stream-based task</strong></td><td><span class="pill blue">A</span> WHEN SYSTEM$STREAM_HAS_DATA</td><td>SCHEDULE + WHEN is not pure event-driven</td></tr>
+    <tr><td><strong>Zero-copy clone investigation</strong></td><td><span class="pill blue">C</span> CLONE PROD.PUBLIC.TRANS_HIST</td><td>CREATE LIKE = no data; CREATE AS SELECT = full copy cost</td></tr>
+    <tr><td><strong>UNPIVOT wide to long</strong></td><td><span class="pill blue">B</span> UNPIVOT</td><td>PIVOT goes long→wide; INTERSECT/EXCEPT are set ops</td></tr>
+    <tr><td><strong>SSO setup role</strong></td><td><span class="pill blue">B</span> SECURITYADMIN</td><td>ACCOUNTADMIN is overkill; USERADMIN/SYSADMIN can't set SSO</td></tr>
+    <tr><td><strong>Distance with least overhead</strong></td><td><span class="pill blue">D</span> ST_DISTANCE</td><td>HAVERSINE needs manual lat/lon; ST_LENGTH = linestring only</td></tr>
+    <tr><td><strong>Similarity estimation</strong></td><td><span class="pill blue">A</span> MinHash</td><td>HyperLogLog = cardinality; APPROX_TOP_K = top values</td></tr>
+    <tr><td><strong>INFER_SCHEMA purpose</strong></td><td><span class="pill blue">B</span> Semi-structured staged files</td><td>Not unstructured; not JSON in table cell</td></tr>
+    <tr><td><strong>Cardinality on trillions of rows</strong></td><td><span class="pill blue">B</span> HLL(*)</td><td>COUNT DISTINCT is exact but very expensive</td></tr>
+    <tr><td><strong>Foreign key after rename</strong></td><td><span class="pill blue">D</span> FK updated to renamed table</td><td>Snowflake tracks object identity; FK stays valid</td></tr>
+    <tr><td><strong>Dim model over flat table (TWO)</strong></td><td><span class="pill blue">A+C</span> Performance + Scalability</td><td>B wrong: dimensional model uses MORE storage</td></tr>
+    <tr><td><strong>ACCOUNT_USAGE query failing</strong></td><td><span class="pill blue">D</span> Change DB context to SNOWFLAKE</td><td>DB1.ACCOUNT_USAGE doesn't exist; schema is in SNOWFLAKE DB</td></tr>
+    <tr><td><strong>Dashboard filter refresh failures</strong></td><td><span class="pill blue">C</span> ALERT_HISTORY</td><td>Dashboard filter is an alert; not LOGIN/ACCESS/TASK history</td></tr>
+    <tr><td><strong>DAG task retry</strong></td><td><span class="pill blue">A</span> EXECUTE TASK STEP10 RETRY LAST</td><td>ETLDAILY retry runs ALL 12 tasks; ALTER RESUME ≠ retry failed</td></tr>
+    <tr><td><strong>ILIKE with ESCAPE</strong></td><td><span class="pill blue">A</span> Peter_John only</td><td>ESCAPE '=' makes '=' an escape char; '%_j%' = any+one char+j</td></tr>
+    <tr><td><strong>MIN_BY/MAX_BY on employees</strong></td><td><span class="pill blue">D</span> MIN_VAL=8000, MAX_VAL=15000</td><td>MIN_BY(salary, employee_id) = salary of lowest employee_id</td></tr>
+    <tr><td><strong>Consumer actions on shared DB (THREE)</strong></td><td><span class="pill blue">A+C+E</span> Copy, Use TTrav, Grant roles</td><td>Cannot clone shared DB; cannot create streams; cannot edit comments</td></tr>
+  </tbody>
+</table>
+</div>
+
+</div><!-- /container -->
+</main>
+
+<footer>
+  <p>Prepared by <strong>Saravana Pandi C</strong> · SnowPro Advanced: Data Analyst Exam Study Material</p>
+  <p style="margin-top:6px;">linkedin : linkedin.com/in/saravana-pandi-9a9662198 🎿</p>
+</footer>
+
+</body>
+</html>
